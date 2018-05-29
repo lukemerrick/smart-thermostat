@@ -1,7 +1,23 @@
 DROP TABLE IF EXISTS user;
+DROP TABLE IF EXISTS sensor;
+DROP TABLE IF EXISTS event;
 
 CREATE TABLE user (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   username TEXT UNIQUE NOT NULL,
   password TEXT NOT NULL
+);
+
+CREATE TABLE sensor (
+  sensor_id INTEGER PRIMARY KEY AUTOINCREMENT,
+  location TEXT NOT NULL,
+  description TEXT
+);
+
+CREATE TABLE event (
+  event_id INTEGER PRIMARY KEY AUTOINCREMENT,
+  sensor_id INTEGER NOT NULL,
+  event_start TIMESTAMP NOT NULL,
+  event_end TIMESTAMP NOT NULL,
+  event_type TEXT NOT NULL
 );

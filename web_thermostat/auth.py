@@ -69,7 +69,8 @@ def set_password(password):
 def login():
     '''Log in a registered user by adding the user id to the session.'''
     if request.method == 'POST':
-        username = request.form['username']
+        # username = request.form['username']
+        username = ADMIN_USERNAME
         password = request.form['password']
         db = get_db()
         error = None
@@ -83,12 +84,16 @@ def login():
             error = 'Incorrect password.'
 
         if error is None:
-            # store the user id in a new session and return to the index
+            # store the user id in a new session and return to the dashboard
             session.clear()
             session['user_id'] = user['id']
-            return redirect(url_for('index'))
+            return redirect(url_for('dashboard'))
 
         flash(error)
+
+    # if already logged in, redirect
+    if g.user is not None:
+        return redirect(url_for('dashboard'))
 
     return render_template('auth/login.html')
 
@@ -97,4 +102,4 @@ def login():
 def logout():
     '''Clear the current session, including the stored user id.'''
     session.clear()
-    return redirect(url_for('index'))
+    return redirect(url_for('auth.login'))
