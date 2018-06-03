@@ -31,7 +31,27 @@ placeholder_notifications = [
     },
 ]
 
+placeholder_rooms = [
+        {
+            'name':'Living Room',
+            'current_temp':72.34,
+            'current_humidity':32.1,
+            'temp_setting_low':70,
+            'temp_setting_high':73,
+        },
+        {
+            'name':'Bedroom',
+            'current_temp':69.5,
+            'current_humidity':26.22,
+            'temp_setting_low':68,
+            'temp_setting_high':71,
+        }
+]
+
+
 @bp.route('/')
 @login_required
 def index():
-    return render_template('dashboard/index.html', notifications=placeholder_notifications)
+    return render_template('dashboard/index.html',
+            notifications=placeholder_notifications,
+            rooms=placeholder_rooms, temp_unit='F')
