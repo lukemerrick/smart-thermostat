@@ -53,7 +53,7 @@ placeholder_rooms = [
 @login_required
 def index():
     if request.method == 'POST':
-        room_id = request.form.get('room_id')
+        room_id = request.form.get('room_id', type=int)
         new_temp_setting = request.form.get('temp_setting', type=float)
         if room_id == 1:
             placeholder_rooms[0]['temp_setting'] = new_temp_setting
