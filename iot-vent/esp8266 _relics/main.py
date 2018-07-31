@@ -3,13 +3,14 @@ from umqtt.robust import MQTTClient
 import machine
 from servo import Servo
 from time import sleep
+import ussl
 
 ap_if = network.WLAN(network.AP_IF)
 ap_if.active(False)
 sta_if = network.WLAN(network.STA_IF)
 sta_if.active(True)
 
-sta_if.connect("***REMOVED***", "***REMOVED***")
+sta_if.connect("<ssid>", "<psk>")
 
 power = machine.Pin(5, machine.Pin.OUT)
 
@@ -49,8 +50,11 @@ def sub_cb(topic, msg):
         power.value(0)
         return
 
+# TODO: Determine where to place cert files & how to set the ssl parameters appropriately
 
-client = MQTTClient("vent1_client", "192.168.1.182", user="vent1", password="3zbrEze", port=1883)
+
+client = MQTTClient("vent1_client", "192.168.1.182", user="vent1", password="3zbrEze", port=8883, ssl=True,
+                    server_side=False, keyfile=None, certfile=None, cert_reqs=ussl.CERT_REQUIRED, ca_certs=None)
 client.set_callback(sub_cb)
 client.connect()
 client.subscribe(topic="test/vent1")

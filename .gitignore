@@ -1,3 +1,11 @@
+# Jetbrains stuff:
+.idea/
+
+# SSL Certificates and keys
+*crt
+*key
+*pem
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
